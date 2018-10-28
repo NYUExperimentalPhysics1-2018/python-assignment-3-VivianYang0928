@@ -6,10 +6,11 @@ tests trajectory from tanks.py
 @author: gershow
 """
 
-from tanks import trajectory
+import numpy as np
 import matplotlib.pyplot as plt
+from tanks import trajectory
 
-x,y = trajectory(1,1, 20, 45)
+x,y = trajectory(1,1, 20, 45,g=9.8,npts=1000)
 plt.clf()
 plt.plot(x,y)
 xt = [1, 11.458698248219541, 21.917396496439082, 32.376094744658616,42.792958199885284]
