@@ -4,7 +4,7 @@
 Created on Thu Oct 18 19:18:02 2018
 
 @author: gershow
-TA : 
+TA : Argha Mondal
 Student: Yuwei Yang
 """
 import numpy as np
@@ -27,7 +27,7 @@ def trajectory (x0,y0,v,theta,g = 9.8, npts = 1000):
 
 def firstInBox (x,y,box):
     for j in range(0,len(x)):
-        if x[j] in range(box[0],box[1]) and y[j] in range(box[2],box[3]):
+        if x[j] <= box[1] and x[j] >= box[0] and y[j] <= box[3] and y[j] >= box[2]:
             return j
     return -1
 
@@ -50,39 +50,36 @@ def drawBoard (tank1box, tank2box, obstacleBox, playerNum):
     showWindow() 
 
 def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8): 
-    plt.clf()
     drawBoard(tank1box, tank2box, obstacleBox, playerNum)
     angle = getNumberInput("Please enter an angle: ", validRange=[0,360])
     velocity = getNumberInput("Please enter a velocity: ", validRange = [0, np.Inf])
     x0 = (tank1box[0]+tank1box[1])/2
     y0 = (tank1box[2]+tank1box[3])/2
     hit = tankShot(tank2box, obstacleBox, x0, y0, velocity, angle, g=9.8)
-    if hit == True:
+    if hit:
         return playerNum
     else:
         return 0
 
 def playGame(tank1box, tank2box, obstacleBox, g = 9.8):
-    playerNum = 1
     while True:
-        if playerNum == 1:
-            result = oneTurn(tank1box, tank2box, obstacleBox, 1, g = 9.8)
-            if result == 0:
-                input("Press Enter to continue")
-                playerNum = 2
-            else:
-                break
-        elif playerNum == 2:
-            result = oneTurn(tank2box, tank1box, obstacleBox, 2, g = 9.8)
-            if result == 0:
-                input("Press Enter to continue")
-                playerNum = 1
-            else:
-                break
-    print("Congratulations!", playerNum, "won the game!")
+        result = oneTurn(tank1box, tank2box, obstacleBox, 1, g = 9.8)
+        if result == 0:
+            input("Press Enter to continue")
+        else:
+            print("Congratulations! 1 won the game!")
+            break
+        result = oneTurn(tank2box, tank1box, obstacleBox, 2, g = 9.8)
+        if result == 0:
+            input("Press Enter to continue")
+        else:
+            print("Congratulations! 2 won the game!")
+            break
+        
+    
+    
             
-            
-                
+        
         
 ##### functions provided to you #####
 def getNumberInput (prompt, validRange = [-np.Inf, np.Inf]):
