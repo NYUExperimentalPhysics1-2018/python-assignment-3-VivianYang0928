@@ -64,14 +64,18 @@ def oneTurn (tank1box, tank2box, obstacleBox, playerNum, g = 9.8):
 def playGame(tank1box, tank2box, obstacleBox, g = 9.8):
     while True:
         result = oneTurn(tank1box, tank2box, obstacleBox, 1, g = 9.8)
+        plt.title("player 1's turn")
         if result == 0:
-            input("Press Enter to continue")
+            showWindow()
+            input("Press Enter to continue, player 2's turn(enter an angle between 91-180)")
         else:
             print("Congratulations! 1 won the game!")
             break
         result = oneTurn(tank2box, tank1box, obstacleBox, 2, g = 9.8)
+        plt.title("player 2's turn")
         if result == 0:
-            input("Press Enter to continue")
+            showWindow()
+            input("Press Enter to continue, player 1's turn(enter an angel between 0-90)")
         else:
             print("Congratulations! 2 won the game!")
             break
